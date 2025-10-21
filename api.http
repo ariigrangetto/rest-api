@@ -6,9 +6,9 @@ GET http://localhost:8080/movies
 
 GET http://localhost:8080/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 
-## Recuperar todas las peliculas por un genero
+### Recuperar todas las peliculas por un genero
 
-GET http://localhost/movies?genre=Terror
+GET http://localhost:8080/movies?genre=Terror
 
 ###Crear una pelicula con POST
 

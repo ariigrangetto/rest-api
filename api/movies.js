@@ -1,8 +1,10 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const app = express();
-const movies = require("./movies.json");
+
+const movies = require("../movies.json");
 const crypto = require("node:crypto");
-const { validateMovie, validatePartialMovie } = require("./schemas/movies");
+const { validateMovie, validatePartialMovie } = require("../schemas/movies.js");
 const cors = require("cors");
 
 app.disable("x-powered-by");
@@ -77,7 +79,7 @@ app.post("/movies", (req, res) => {
   res.status(201).json(newMovie);
 });
 
-app.delete("/movies/:id", (res, req) => {
+app.delete("/movies/:id", (req, res) => {
   const { id } = req.params;
   const movieIndex = movies.findIndex((movie) => movie.id === id);
 
@@ -111,8 +113,11 @@ app.patch("/movies/:id", (req, res) => {
   return res.json(updateMovie);
 });
 
-const PORT = process.env.PORT ?? 8080;
+// const PORT = process.env.PORT ?? 8080;
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`);
+// });
+
+module.exports = app;
+module.exports.handler = serverless(app);
